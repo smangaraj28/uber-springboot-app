@@ -1,0 +1,184 @@
+{
+	"info": {
+		"_postman_id": "3563052e-b57f-4d6c-be7f-7048121341e7",
+		"name": "Uber App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All Drivers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sign up",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"type\" : \"passenger\",\n    \"name\": \"Shreya\",\n    \"gender\": \"female\",\n    \"phoneNo\": \"9183291839\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7880/my-uber-app/api/v1/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7880",
+					"path": [
+						"my-uber-app",
+						"api",
+						"v1",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Avaiable Drivers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Book A Trip",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"passenger_id\": 3,\n    \"start_loc_id\": \"Hyderabad\",\n    \"end_loc_id\": \"Jamshedpur\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7880/my-uber-app/api/v1/booktrip",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7880",
+					"path": [
+						"my-uber-app",
+						"api",
+						"v1",
+						"booktrip"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cancel a Trip",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7880/my-uber-app/api/v1/canceltrip/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7880",
+					"path": [
+						"my-uber-app",
+						"api",
+						"v1",
+						"canceltrip",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Complete a Trip",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7880/my-uber-app/api/v1/completetrip/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7880",
+					"path": [
+						"my-uber-app",
+						"api",
+						"v1",
+						"completetrip",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Trip Details for Driver/Passenger",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Active Trip for Driver/Passenger",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7880/my-uber-app/api/v1/activetrip/driver/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7880",
+					"path": [
+						"my-uber-app",
+						"api",
+						"v1",
+						"activetrip",
+						"driver",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

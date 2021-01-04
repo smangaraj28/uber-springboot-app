@@ -1,0 +1,150 @@
+``````````````````````````````````````````UBER SYSTEM DESIGN```````````````````````````````````````
+
+DB DESIGN : 
+
+Tables: 
+
+Trip       (id,start_loc_id,end_loc_id,start_time,end_time,status,passenger_id,driver_id)
+Passenger  (id,name,gender,phone_no,status)
+Driver     (id,name,gender,phone_no,cab_id,status)
+Location (id, name, description)
+
+Status (id, status (active/ inactive/complete) , type (trip/passenger/driver) )  #this table not required (just thinking)
+
+CONSTANTS : 
+	
+enum	Trip Status : active (trip is ongoing) , complete (trip is completed by driver), cancel (trip is cancelled either by driver or passenger ) (default = active)
+enum    Driver Status :(driver is in a trip) active, inactive (driver is not allocated to a trip) (default = inactive )
+enum    Passenger Status : (passenger is in a trip ) active , inactive (passenger is not allocated to a trip) (default = inactive)
+
+API DESCRIPTION: 
+
+Book a trip  ->  passenger_id,start_loc_ID,end_loc_ID, start_time (not Required by default = current Time ) 
+		Validation Check with Foreign key Reference with Passenger_id and Driver_id -> (passenger or Driver is not Registered with System)
+		Validation Check with passenger_id status : (passenger_status should be inactive) -> (if active booking can't be done)
+		Validation Check with driver_id status : (driver_status should be inactive)-> ( if  active, booking can't be done)
+		
+		Check all avaialable drivers by calling (GET ALL Avaibable Drivers API )
+		select one driver id from those avaiable drivers 
+		
+		Insert into Trip Table (driver_id, passenger_id,start_loc_id,end_loc_id,start_time,status = active) into Trip Table
+		Update Driver Table (status = active) where driver_id given
+		Update Passenger Table (status = active ) where passenger_id given
+		
+Cancel a trip -> trip_id
+		Update Trip Table (trip_end_time,status = cancel) where passenger_id and trip_id given
+		Update Driver Table (status = inactive) where driver_id given , fetch other from Trip Table
+		Update Passenger Table (status = inactive) where passenger_id given, fetch other from Trip Table
+		
+End/Complete a trip -> trip_id
+		Update Trip Table (trip_end_time,status = complete) where driver_id and trip_id given
+		Update Driver Table (status = inactive) where driver_id given
+		Update Passeneger Table (status = inactive) where passenger_id taken from Trip Table
+
+Get all Passengers : Select from passenger table all entries
+
+Get all Active Passengers: Select from passenger table based on passenger_status -> inactive
+
+Get all Drivers : Select from Driver Table all entries
+
+Get all avaiable Drivers: Select from Drive Table based on driver_status -> inactive
+
+Sign up : Passenger / Driver ( name , gender,phone_no, status = inactive, cab_id ->, type : (passenger/driver) ) 
+	  Check for the type 
+	  Do Insert INTO Either Passenger/Driver Table based on type to resepective table
+	
+	
+API Design : 
+
+HTTP Method 			API 					CRUD Action
+	
+POST :			/api/v1/signup/{type}			Signing up Driver / Passenger (based on Type)
+
+GET : 			/api/v1/drivers			All Drivers
+GET : 			/api/v1/activedrivers			All Avaiable drivers
+
+GET : 			/api/v1/passengers			All Passengers
+GET : 			/api/v1/activepassengers		All Avaiable Passengers (Already in cab or booked cab)
+
+
+POST : 		/api/v1/trip/book		    		Book a Trip
+POST : 		/api/v1/trip/cancel/{tripId}		Cancel a Trip
+POST : 		/api/v1/trip/complete/{tripId}		Complete/End a Trip
+
+GET: 			/api/v1/trips			        Get Trip Details Driver/Passenger (based on Type) 
+GET:  			/api/v1/activetrip			Get Active Trip for Driver/Passenger (based on Type)
+
+
+Exceptions : 
+
+Create an Exception Layers
+Wrong End Point
+Wrong id passing
+Unit Test Cases for JUNIT 
+Swagger Documentation
+Request Response with underscore -> Postman 
+Java with regular java convention (Done)
+Removing code controller layer code (Done -- little bit is pending ) 
+removing model and use DTO (Done)
+entity/model both are same (Done)
+use lombok to remove all boilerplate code (Done)
+
+
+
+
+Create base entity and extend it to table entity  (done)
+created AT and updated AT (columns we need to add) (done) 
+plugins sonar lint : makes code cleaner (done)
+@Autowired and IOC discussions 
+Optional And Streams Leanring 
+@Service vs @Component vs @Repository
+// TripResponse Creation
+Entity should not be exposed to Controller (Use pojo instead) (Done)
+
+TEst cases (writing) for service (unit and integration Testing) (started)
+sonar cloud integration
+
+Script Tags should be removed
+
+
+
+
+
+mvn spring-boot:run
+
+mvn clean install
+
+//    @Column(updatable = false)
+//    @CreatedDate
+//    private LocalDateTime createdAt;
+//
+//    @LastModifiedDate
+//    private LocalDateTime updatedAt;
+
+
+package com.app.mycoolapp;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class MycoolappApplicationTests {
+
+	@Test
+	void contextLoads() {
+		System.out.println("asdad");
+	}
+
+}
+
+
+Identify the atomic design in amazon
+Functional Components   - react Library (Documentation)
+Create a functional Components - react Libraray (Documentation)
+Material UI design (library)
+Themeing the Application 
+
+
+
+
+
